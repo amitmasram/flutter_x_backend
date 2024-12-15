@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateTweetRepo = exports.createTweetRepo = exports.deleteTweetRepo = exports.getTweetRepo = void 0;
+exports.getAllTweetsRepo = exports.updateTweetRepo = exports.createTweetRepo = exports.deleteTweetRepo = exports.getTweetRepo = void 0;
 const tweet_model_1 = __importDefault(require("../database/models/tweet.model"));
+const user_model_1 = __importDefault(require("../database/models/user.model"));
 const getTweetRepo = (tweetId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const tweet = yield tweet_model_1.default.findOne({ tweetId: tweetId });
@@ -68,3 +69,24 @@ const updateTweetRepo = (tweetId, updateTweet) => __awaiter(void 0, void 0, void
     }
 });
 exports.updateTweetRepo = updateTweetRepo;
+const getAllTweetsRepo = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const allTweets = yield tweet_model_1.default.find();
+        if (!allTweets || allTweets.length == 0) {
+            return null;
+        }
+        const tweetWithUserInfo = yield Promise.all(allTweets.map((tweet) => __awaiter(void 0, void 0, void 0, function* () {
+            const admin = yield user_model_1.default.findOne({ uid: tweet.adminId });
+            if (!admin) {
+                return { tweet, admin: null };
+            }
+            return { tweet, admin };
+        })));
+        return tweetWithUserInfo;
+    }
+    catch (error) {
+        console.log(error);
+        return null;
+    }
+});
+exports.getAllTweetsRepo = getAllTweetsRepo;

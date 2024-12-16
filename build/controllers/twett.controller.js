@@ -33,15 +33,15 @@ const getAllTweetsController = (req, res) => __awaiter(void 0, void 0, void 0, f
     try {
         const tweets = yield (0, tweet_repository_1.getAllTweetsRepo)();
         if (tweets) {
-            res.status(200).json({ "data": tweets });
+            res.status(200).json({ data: tweets });
         }
         else {
-            res.status(500).json({ "error": "Tweet Not Found" });
+            res.status(500).json({ error: "Tweets Not Found" });
         }
     }
     catch (error) {
         console.log(error);
-        res.status(500).json({ "error": error });
+        res.status(500).json({ error: error });
     }
 });
 exports.getAllTweetsController = getAllTweetsController;

@@ -6,7 +6,7 @@ const tweetRouter = (0, express_1.Router)();
 // Define route paths
 // this is the end points 
 tweetRouter.get("/:tweetId", twett_controller_1.getTweetController);
-tweetRouter.get("/", twett_controller_1.getAllTweetsController);
+tweetRouter.get("/get/all", twett_controller_1.getAllTweetsController);
 tweetRouter.post("/", twett_controller_1.createTweetController);
 tweetRouter.delete("/:usertId", twett_controller_1.deleteTweetController);
 tweetRouter.put("/", twett_controller_1.updateTweetController);

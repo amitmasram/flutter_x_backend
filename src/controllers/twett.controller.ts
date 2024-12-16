@@ -24,23 +24,19 @@ export const getTweetController = async (req: Request, res: Response) => {
 }
 
 export const getAllTweetsController = async (req: Request, res: Response) => {
-
-
-
     try {
         const tweets = await getAllTweetsRepo();
         if (tweets) {
-            res.status(200).json({ "data": tweets })
+            res.status(200).json({ data: tweets });
         } else {
-            res.status(500).json({ "error": "Tweet Not Found" })
+            res.status(500).json({ error: "Tweets Not Found" });
         }
-
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ "error": error });
+        console.log(error);
+        res.status(500).json({ error: error });
     }
+};
 
-}
 
 
 export const createTweetController = async (req: Request, res: Response) => {
